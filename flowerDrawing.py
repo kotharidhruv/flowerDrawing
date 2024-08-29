@@ -1,16 +1,31 @@
 import turtle
+import tkinter.messagebox as messagebox
  
  
 painter = turtle.Turtle()
 screen = turtle.screensize()
 
-flowers = ["rose", "daisy", "sunflower", "tulip","lily", "magnolia", "violet", "cosmos", "lily", "rose", "sunflower", "tulip"]
+flowers = ["rose", "roses","daisy","daisies", "sunflower", "sunflowers","tulip","tulips","lily", "lilies", "tulip","tulips"]
 
-userInp = input("Please enter the type of flower you want and the number of flowers. (ex. rose 3): ")
-flowerType = userInp.split()[0]
-flowerNum = int(userInp.split()[1])
+flowerType = None
+flowerNum = None
 
-painter.speed(1)
+while flowerType is None and flowerNum is None:
+    userInp = turtle.textinput("Flower Drawing", "Please enter the type of flower you want and the number of flowers. (ex. rose 3): ")
+    words = userInp.split()
+    for word in words:
+        if word.lower() in flowers:
+            flowerType = word.lower()
+        elif word.isdigit():
+            flowerNum = int(word)
+
+    if flowerType is None or flowerNum is None:
+        messagebox.showinfo("Error", "Please enter a valid flower type and number of flowers.")
+    else:
+        painter.speed(1)
+
+if flowerNum>2:
+    painter.speed(100)
 
 def drawRose(scale):
     painter.penup ()
@@ -257,7 +272,7 @@ def drawLily(scale):
     painter.pendown()
 
 
-if flowerType=='rose':
+if flowerType=='rose' or flowerType=='roses':
     for i in range(flowerNum):
         print(f"i: {i}, screen[0]: {screen[0]}, 1/flowerNum: {1/flowerNum}")
         painter.penup()
